@@ -1,0 +1,25 @@
+{
+    "activities ": [
+        {
+            "active ": "False ",
+            "budget ": 123,
+            "code ": "yuu ",
+            "manager ": "Doga ",
+            "name ": "sdfsdf "
+        },
+        {
+            "active ": "True ",
+            "budget ": 123,
+            "code ": "asd ",
+            "manager ": "Doga ",
+            "name ": "qwewe "
+        },
+        {
+            "active ": "True ",
+            "budget ": 123,
+            "code ": "asddas ",
+            "manager ": "Recep ",
+            "name ": "asd "
+        }
+    ]
+}
