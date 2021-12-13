@@ -1,0 +1,70 @@
+{
+  "activities ": [
+    {
+      "active ": false,
+      "code ": "yuu ",
+      "manager ": "Doga ",
+      "name ": "sdfsdf ",
+      "budget ": 123,
+      "subactivities ": []
+    },
+    {
+      "active ": true,
+      "code ": "bara",
+      "manager ": "barana",
+      "name ": "baran",
+      "budget ": 34434,
+      "subactivities ": []
+    },
+    {
+      "active ": false,
+      "code ": "baraddd",
+      "manager ": "baranaddd",
+      "name ": "baranddd",
+      "budget ": 0,
+      "subactivities ": []
+    },
+    {
+      "active ": true,
+      "code ": "popo",
+      "manager ": "sik",
+      "name ": "pipi",
+      "budget ": 232,
+      "subactivities ": []
+    },
+    {
+      "active ": false,
+      "code ": "keke",
+      "manager ": "tete",
+      "name ": "pepe",
+      "budget ": 232,
+      "subactivities ": []
+    },
+    {
+      "active ": true,
+      "code ": "new",
+      "manager ": "sds",
+      "name ": "fgf",
+      "budget ": 34343,
+      "subactivities ": []
+    },
+    {
+      "active ": false,
+      "code ": "old",
+      "manager ": "sds",
+      "name ": "fgf",
+      "budget ": 34343,
+      "subactivities ": []
+    },
+    {
+      "active ": true,
+      "code ": "aa",
+      "manager ": "ss",
+      "name ": "aa",
+      "budget ": 2323,
+      "subactivities ": [
+        "sdsd"
+      ]
+    }
+  ]
+}

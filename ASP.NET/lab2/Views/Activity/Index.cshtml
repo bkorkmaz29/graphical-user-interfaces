@@ -1,0 +1,39 @@
+﻿@model lab2.Models.Activities
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<a asp-controller = "Activity" asp-action="AddActivity" class="btn btn-primary btn-block" >Add Activity</a>
+
+<table  class="table table-bordered">
+
+    <tbody>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Budget</th>
+            <th>Manager</th>
+        </tr>
+        @foreach (var i in Model.ActivityList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Budget)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Manager)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+
