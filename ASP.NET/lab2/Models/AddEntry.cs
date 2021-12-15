@@ -21,7 +21,7 @@ namespace lab2.Models
         [JsonProperty("description ")]
         public string Description { get; set; }
 
-       // public List<string> Codes { get; set; } = new();
+        public List<string> Codes { get; set; } = new();
 
     }
 }

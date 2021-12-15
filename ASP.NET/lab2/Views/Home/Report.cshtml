@@ -1,0 +1,46 @@
+﻿
+@model lab2.Models.Report
+
+@{
+    ViewData["Title"] = "View";
+}
+
+
+<div class="input-group mb-1">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Month :   </span>
+    </div>
+    <select class="form-control" name="Code">
+        @foreach (var d in Model.Months)
+        {
+            <option value=@d>@d</option>
+        }
+    </select>
+    <input data-val="true" data-val-required="Code is required"
+           id="Month" name="Month" type="hidden" value=@ViewData["month"] />
+</div>
+
+
+<table class="table table-bordered">
+
+    <tbody>
+        <tr>
+            <th>Project</th>
+            <th>Time Spent</th>
+        </tr>
+        @foreach (var i in Model.TimeSpent)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Key)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Value)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+

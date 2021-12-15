@@ -821,3 +821,4 @@ C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\la
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\ref\lab2.dll
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.pdb
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.genruntimeconfig.cache
+C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\Report.cshtml.g.cs

@@ -26,6 +26,8 @@ namespace lab2.Models
 		Entries Entries { get; set; }
 		DateTime CurrentDate { get; set; }
 
+		int Index { get; set; }
+
 		public List<string> Codes { get; set; }
 
 		public void AddEntry(Entry newEntry);

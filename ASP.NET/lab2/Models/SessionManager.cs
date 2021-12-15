@@ -31,6 +31,11 @@ namespace lab2.Models
 
         public List<Entry> dailyEntries { get; set; } = new();
 
+        public List<Entry> MonthlyEntries { get; set; } = new();
+
+        public int Index { get; set; }
+
+  
         SessionManager ISessionManager.SessionManager => throw new NotImplementedException();
 
 

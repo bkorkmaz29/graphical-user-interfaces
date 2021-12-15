@@ -1,10 +1,10 @@
-﻿@model lab2.Models.Entry
-@inject lab2.Models.ISessionManager _sessionManager
+﻿@model lab2.Models.AddEntry
+@*@inject lab2.Models.ISessionManager _sessionManager*@
 
 @{
     ViewData["Title"] = "AddEntry";
 }
-
+<script src="//code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 
 
 <form method="post" asp-action="AddNewEntry">
@@ -12,47 +12,75 @@
         <div class:"form-group row">
             <h2 class="text-black-50 pl-3">Add Entry</h2>
         </div>
+        <div class="text-center col-md-6">
+            <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+        </div>
         @*<div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Code :   </span>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Active Codes
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-
-                    </div>
-                </div>
-            </div>*@
-        @*<div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">Date :   </span>
-                </div>
-                <input asp-for="Code" type="text" class="form-control" placeholder="Enter Code">
-            </div>*@
-        <div class="input-group mb-2">
             <div class="input-group-prepend">
                 <span class="input-group-text">Code :   </span>
             </div>
-            <div class="btn-group">
-                <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#">Codes <span class="caret"></span></a>
-                <div class="dropdown-menu">
-                    @foreach (var d in _sessionManager.Codes)
-                    {
-                        <li><a class="dropdown-item">@d</a></li>
-                    }
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Active Codes
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+
                 </div>
             </div>
-            <input asp-for="Code" type="text" class="form-control">
+        </div>*@
+        @*<div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Date :   </span>
+            </div>
+            <input asp-for="Code" type="text" class="form-control" placeholder="Enter Code">
+        </div>*@
+
+
+
+        <div class="input-group mb-1">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Code :   </span>
+            </div>
+            <select class="form-control" name="Code">
+                @foreach (var d in Model.Codes)
+                {
+                    <option value=@d>@d</option>
+                }
+            </select>
+            <input data-val="true" data-val-required="Code is required"
+                   id="Code" name="Code" type="hidden" value=@ViewData["code"] />
         </div>
-        <div class="input-group mb-3">
+
+
+
+        <!--<div class="input-group mb-2">-->
+        @*<div class="btn-group">
+            <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#">Codes <span class="caret"></span></a>
+            <div class="dropdown-menu">
+                @foreach (var d in Model.Codes)
+                {
+                    <li><a class="dropdown-item">@d</a></li>
+                }
+            </div>
+        </div>*@
+
+        <!--</div>-->
+        @*<div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Date :   </span>
             </div>
             <input asp-for="Date" type="text" class="form-control" placeholder="Enter Date">
+        </div>*@
+
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Date :   </span>
+            </div>
+            <input class="datefield" data-val="true" data-val-required="Date is required"
+                   id="DisplayDate" name="DisplayDate" type="date" value=@ViewData["date"] />
         </div>
+
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text">Time :  </span>
@@ -78,3 +106,21 @@
         </div>
     </div>
 </form>
+@section Scripts{
+
+    <script>
+        $(function () {
+
+            $('.datepicker').datepicker();
+        });
+
+    </script>
+    <script>
+        $(".codeslect option").click(function () {
+            var selText = $(this).text();
+            $('#code').val(selText);
+        });
+    </script>
+
+
+    }

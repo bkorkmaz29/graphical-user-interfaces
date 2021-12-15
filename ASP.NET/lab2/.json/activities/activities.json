@@ -6,7 +6,6 @@
       "manager ": "Doga ",
       "name ": "sdfsdf ",
       "budget ": 123,
-      "subactivities ": []
     },
     {
       "active ": true,
@@ -14,7 +13,6 @@
       "manager ": "barana",
       "name ": "baran",
       "budget ": 34434,
-      "subactivities ": []
     },
     {
       "active ": false,
@@ -22,7 +20,6 @@
       "manager ": "baranaddd",
       "name ": "baranddd",
       "budget ": 0,
-      "subactivities ": []
     },
     {
       "active ": true,
@@ -30,7 +27,6 @@
       "manager ": "sik",
       "name ": "pipi",
       "budget ": 232,
-      "subactivities ": []
     },
     {
       "active ": false,
@@ -38,7 +34,6 @@
       "manager ": "tete",
       "name ": "pepe",
       "budget ": 232,
-      "subactivities ": []
     },
     {
       "active ": true,
@@ -46,7 +41,6 @@
       "manager ": "sds",
       "name ": "fgf",
       "budget ": 34343,
-      "subactivities ": []
     },
     {
       "active ": false,
@@ -54,7 +48,6 @@
       "manager ": "sds",
       "name ": "fgf",
       "budget ": 34343,
-      "subactivities ": []
     },
     {
       "active ": true,
@@ -62,9 +55,6 @@
       "manager ": "ss",
       "name ": "aa",
       "budget ": 2323,
-      "subactivities ": [
-        "sdsd"
-      ]
     }
   ]
 }

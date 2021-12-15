@@ -13,9 +13,9 @@ namespace lab2.Controllers
     public class ActivityController : Controller
     {
         public IActionResult Index()
-        {
+        {   
+
             var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\activities\activities.json");
-            //Console.WriteLine(json);
             var activities = JsonConvert.DeserializeObject<Activities>(json);
             return View(activities);
             

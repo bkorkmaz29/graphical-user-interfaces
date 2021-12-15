@@ -1,86 +1,108 @@
 ﻿@model lab2.Models.SessionManager
 @inject lab2.Models.ISessionManager depservice
 
-    @{
-        ViewData["Title"] = "Home Page";
-    }
-    <div class="container">
-        <div class="d-flex justify-content-center">
-            <div class="border m-3">
-                <div class="column">
-                    <div style="text-align:center">
-                        <span>Select Date</span>
-                    </div>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="border m-3">
+            <div class="column">
+                <div style="text-align:center">
+                    <span>Select Date</span>
                 </div>
-                <form asp-controller="Home" asp-action="Index" method="post">
-                    <input class="datefield" data-val="true" data-val-required="Date is required"
-                           id="selectedDate" name="selectedDate" type="date" />
-                    <button>Show Table</button>
-                </form>
             </div>
+            <form asp-controller="Home" asp-action="Index" method="post">
+                <input class="datefield" data-val="true" data-val-required="Date is required"
+                       id="selectedDate" name="selectedDate" type="date" value=@Model.CurrentDate placeholder=@Model.CurrentDate />
+                <button>Show Table</button>
+            </form>
         </div>
     </div>
-        
-        <div class="text-center col-md-6">
-            <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
-        </div>
-        <div class="container">
-            <a asp-controller="Home" asp-action="AddEntry" class="btn btn-primary btn-block">Add Entry</a>
-            <table class="table table-bordered">
+</div>
+
+<div class="text-center col-md-6">
+    <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+</div>
+<div class="container">
+    <a asp-controller="Home" asp-action="AddEntry" class="btn btn-primary btn-block">Add Entry</a>
+    <table class="table table-bordered">
+        <tr>
+            <th>Code</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+        <tbody>
+            @{int EditIndex = 0; int count = 0;}
+            @foreach (var item in Model.dailyEntries)
+            {
+
                 <tr>
-                    <th>Code</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Time</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Time)
+                    </td>
+                    <td>
+                        <a asp-action="EditEntry" asp-controller="Home" asp-route-id=@EditIndex class="btn btn-warning w-75">Edit</a>
+                    </td>
+                    <td>
+                        @*<a href='@Html.ActionLink("Delete", "DeleteEntry", "Home", new { id = EditIndex }, null)' class="btn btn-danger w-75">Delete</a>*@
+                        @*<button class="btn btn-danger" onclick="location.href= @Html.ActionLink("Delete", "DeleteEntry", "Home", new { id = EditIndex }, null)">Delete</button>*@
+                        <button class="btn btn-danger w-75" type="button" onclick="location.href='@Url.Action("DeleteEntry", "Home", new { id = EditIndex })'">
+                            Delete
+                            
+                        </button>
+
+
+
+                    </td>
                 </tr>
-                <tbody>
-                    @{int i = 0;}
-                    @foreach (var item in Model.dailyEntries)
-                    {
+                EditIndex++;
+                count += item.Time;
 
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Code)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Time)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-controller="Home" asp-route-id =@i class="btn btn-warning w-75">Edit</a>
-                            </td>
-                            <td>
-                                <a asp-action="Index" class="btn btn-danger w-75">Delete</a>
-                            </td>
-                        </tr>
-                        i++;
+            }
 
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    Total Time Spent = @count
+                </td>
+            </tr>
+        </tbody>
 
-                    }
-                </tbody>
-
-            </table>
-
-        </div>
-   
+    </table>
+</div>
 
 
 
-    @section Scripts{
 
-        <script>
-            $(function () {
+@section Scripts{
 
-                $('.datepicker').datepicker();
-            });
+    <script>
+        $(function () {
 
-        </script>
+            $('.datepicker').datepicker();
+        });
 
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+    </script>
 
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}
