@@ -5,6 +5,7 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace lab2.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ISessionManager _sessionManager;
-
+       
 
      
         public HomeController(ILogger<HomeController> logger, ISessionManager sessionManager)
@@ -37,21 +38,27 @@ namespace lab2.Controllers
             return View();
         }
 
-        
+
+
 
         [HttpPost]
         public IActionResult SignIn(string UserName)
         {
-            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\activities\activities.json";
+
+            string pathActivity = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\activities\activities.json";
             _sessionManager.ChangeName(UserName);
 
-            if (!System.IO.File.Exists(path))
+            _sessionManager.Entries.EntryList.Clear();
+            string dirEntry = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name();
+            System.IO.Directory.CreateDirectory(dirEntry);
+
+            if (!System.IO.File.Exists(pathActivity))
             {
-                System.IO.File.Create(path);
+                System.IO.File.Create(pathActivity);
             }
             else
             {
-                var json = System.IO.File.ReadAllText(path);
+                var json = System.IO.File.ReadAllText(pathActivity);
                 _sessionManager.LoadActivities(json);
                 var activities = JsonConvert.DeserializeObject<Activities>(json);
                 foreach (var i in activities.ActivityList)
@@ -61,44 +68,44 @@ namespace lab2.Controllers
             }
 
 
-            return RedirectToAction(actionName: "Index", controllerName: "Home", new
-                 {
-                     userName = UserName
-
-                 });
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
         }
 
         [HttpGet]
-        public IActionResult Index(string userName)
+        public IActionResult Index()
         {
-            //_sessionManager.UserName = userName;
-          
             _sessionManager.changeDate(DateTime.Now);
             string date = _sessionManager.CurrentDate.ToString("yyyy-MM");
-            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.Name() + "-" +
-                 date + ".json";
+            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name() + "\\" + _sessionManager.Name() + "-" +
+                date + ".json";
             if (!System.IO.File.Exists(path))
             {
-                System.IO.File.Create(path);
+                System.IO.File.Create(path).Close();
+                JObject obj = (JObject)JToken.FromObject(_sessionManager.Entries);
+                System.IO.File.WriteAllText(path, obj.ToString());
+                var json = System.IO.File.ReadAllText(path);
+                _sessionManager.LoadEntries(json);
+
             }
             else
             {
                 var json = System.IO.File.ReadAllText(path);
                 _sessionManager.LoadEntries(json);
-                _sessionManager.addDaily();
+
             }
-           
+
+            _sessionManager.addDaily();
 
 
-            
             return View(_sessionManager);
-            
+
         }
 
         [HttpPost]
 
-        public IActionResult Index(DateTime selectedDate)
+        public IActionResult Index(string StringDate)
         {
+            DateTime selectedDate = DateTime.Parse(StringDate);
             string newDate = selectedDate.ToString("yyyy-MM");
             string oldDate = _sessionManager.CurrentDate.Month.ToString("yyyy-MM");
 
@@ -107,35 +114,32 @@ namespace lab2.Controllers
                 _sessionManager.changeDate(selectedDate);
                 _sessionManager.addDaily();
             }
-            else
+
+
+            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name() + "\\" + _sessionManager.Name() + "-" +
+            newDate + ".json";
+            if (!System.IO.File.Exists(path))
             {
-                string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.Name() + "-" +
-                newDate + ".json";
-                if (!System.IO.File.Exists(path))
-                {
-                    System.IO.File.Create(path);
-                }
-                else
-                {
-                    var json = System.IO.File.ReadAllText(path);
-                    _sessionManager.LoadEntries(json);
-                    _sessionManager.changeDate(selectedDate);
-                    _sessionManager.addDaily();
-                }
 
+                System.IO.File.Create(path).Close();
+                _sessionManager.Entries.EntryList.Clear();
+
+                JObject obj = (JObject)JToken.FromObject(_sessionManager.Entries);
+                System.IO.File.WriteAllText(path, obj.ToString());
+                _sessionManager.addDaily();
             }
-            
-            //var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.UserName + "-" +
-                // date + ".json");
-            //_sessionManager.entries = JsonConvert.DeserializeObject<Entries>(json);
-            
+            else if (System.IO.File.Exists(path))
+            {
+                var json = System.IO.File.ReadAllText(path);
+                _sessionManager.LoadEntries(json);
+                _sessionManager.changeDate(selectedDate);
+                _sessionManager.addDaily();
+            }
 
-          //  _sessionManager.addDaily();
             return View(_sessionManager);
 
         }
-      
-  
+
 
         public IActionResult AddEntry()
         {
@@ -150,11 +154,14 @@ namespace lab2.Controllers
         {
             newEntry.Code = Code;
             newEntry.Date = DisplayDate.ToString("yyyy-MM-dd");
-            string date = _sessionManager.CurrentDate.ToString("yyyy-MM");
-            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.Name() + "-" +
-               date + ".json";
-            var json = System.IO.File.ReadAllText(path);
+            string date = DisplayDate.ToString("yyyy-MM");
+            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name() + "\\" + _sessionManager.Name() + "-" +
+                date + ".json";
 
+            if (date != _sessionManager.CurrentDate.ToString("yyyy-MM")) {
+                _sessionManager.Entries.EntryList.Clear();
+            }
+            
             _sessionManager.Entries.EntryList.Add(newEntry);
             JObject obj = (JObject)JToken.FromObject(_sessionManager.Entries);
             System.IO.File.WriteAllText(path, obj.ToString());
@@ -177,10 +184,6 @@ namespace lab2.Controllers
         }
 
 
-
-
-       
-
         [HttpPost]
         public IActionResult Edit(Entry editEntry)
         {
@@ -188,17 +191,13 @@ namespace lab2.Controllers
             _sessionManager.Entries.EntryList[i].Description = editEntry.Description;
             _sessionManager.Entries.EntryList[i].Time = editEntry.Time;
             string date = _sessionManager.CurrentDate.ToString("yyyy-MM");
-            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.Name() + "-" +
-               date + ".json";
+            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name() + "\\" + _sessionManager.Name() + "-" +
+                date + ".json";
 
 
             JObject obj = (JObject)JToken.FromObject(_sessionManager.Entries);
             System.IO.File.WriteAllText(path, obj.ToString());
-            return RedirectToAction(actionName: "Index", controllerName: "Home", new
-            {
-                selectedDate = _sessionManager.CurrentDate
-
-            });
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
 
         }
 
@@ -207,56 +206,18 @@ namespace lab2.Controllers
         {
             
             string date = _sessionManager.CurrentDate.ToString("yyyy-MM");
-            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\" + _sessionManager.Name() + "-" +
-               date + ".json";
+            string path = @"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\" + _sessionManager.Name() + "\\" + _sessionManager.Name() + "-" +
+                date + ".json";
             _sessionManager.Entries.EntryList.RemoveAt(id);
 
 
             JObject obj = (JObject)JToken.FromObject(_sessionManager.Entries);
             System.IO.File.WriteAllText(path, obj.ToString());
-            return RedirectToAction(actionName: "Index", controllerName: "Home", new
-            {
-                selectedDate = _sessionManager.CurrentDate
-
-            });
+            return RedirectToAction(actionName: "Index", controllerName: "Home");
 
         }
 
-        public IActionResult Report()
-        {
-            Report report = new();
-            HashSet<string> codes = new HashSet<string>();
-            Dictionary<string, int> times = new();
-            var entries = _sessionManager.Entries;
-            foreach(var i in entries.EntryList)
-            {
-                codes.Add(i.Code);
-            }
-            foreach(var j in codes)
-            {
-                times.Add(j, TimeSpent(entries, j));
-            }
-
-            report.TimeSpent = times;
-
-            return View(report);
-        }
-
-        public int TimeSpent(Entries entries, string nCode)
-        {
-            var total = 0;
-            foreach (var i in entries.EntryList)
-            {
-                if(i.Code == nCode)
-                {
-                    total += i.Time;
-                }
-
-            }
-
-            return total;
-        }
-
+    
         public IActionResult Privacy()
         {
             return View();

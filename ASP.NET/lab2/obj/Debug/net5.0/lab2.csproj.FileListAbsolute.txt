@@ -410,7 +410,6 @@ C:\Users\BK\Documents\GitHub\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Ra
 C:\Users\BK\Documents\GitHub\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\Login.cshtml.g.cs
 C:\Users\BK\Documents\GitHub\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\Welcome.cshtml.g.cs
 C:\Users\BK\Documents\GitHub\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\EditEntry.cshtml.g.cs
-C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\bin\Debug\net5.0\activities.json
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\bin\Debug\net5.0\appsettings.json
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\bin\Debug\net5.0\lab2.exe
@@ -798,8 +797,6 @@ C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\st
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.TagHelpers.input.cache
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.TagHelpers.output.cache
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.RazorCoreGenerate.cache
-C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Activity\AddActivity.cshtml.g.cs
-C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Activity\Index.cshtml.g.cs
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\AddEntry.cshtml.g.cs
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\EditEntry.cshtml.g.cs
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
@@ -821,4 +818,7 @@ C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\la
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\ref\lab2.dll
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.pdb
 C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\lab2.genruntimeconfig.cache
-C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Home\Report.cshtml.g.cs
+C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Report\Index.cshtml.g.cs
+C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Activity\Index.cshtml.g.cs
+C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\obj\Debug\net5.0\Razor\Views\Activity\AddActivity.cshtml.g.cs
+C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\bin\Debug\net5.0\db\activities\activities.json

@@ -12,10 +12,17 @@ namespace lab2.Controllers
 {
     public class ActivityController : Controller
     {
+
+        private readonly ISessionManager _sessionManager;
+
+        public ActivityController(ISessionManager sessionManager)
+        {
+            _sessionManager = sessionManager;
+        }
         public IActionResult Index()
         {   
 
-            var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\activities\activities.json");
+            var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\activities\activities.json");
             var activities = JsonConvert.DeserializeObject<Activities>(json);
             return View(activities);
             
@@ -29,14 +36,22 @@ namespace lab2.Controllers
         [HttpPost]
         public IActionResult Add(Activity newActivity)
         {
-            var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\activities\activities.json");
+            var json = System.IO.File.ReadAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\activities\activities.json");
             var activities = JsonConvert.DeserializeObject<Activities>(json);
         
             activities.ActivityList.Add(newActivity);
             JObject obj = (JObject)JToken.FromObject(activities);
-            System.IO.File.WriteAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\.json\activities\activities.json", obj.ToString());
-            return View("~/Views/Activity/AddActivity.cshtml");
+            System.IO.File.WriteAllText(@"C:\Users\BK\Desktop\Codedump\EGUI21Z-Korkmaz-Baran\lab2\lab2\db\activities\activities.json", obj.ToString());
+            _sessionManager.Codes.Add(newActivity.Code);
+
+            return RedirectToAction(actionName: "Index", controllerName: "Activity", new
+            {
+                activities = activities
+
+            }); 
+
             
+
         }
     }
 }

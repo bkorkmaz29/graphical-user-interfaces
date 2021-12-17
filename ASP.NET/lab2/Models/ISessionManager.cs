@@ -22,8 +22,9 @@ namespace lab2.Models
 		void ChangeName(String a);
 		public void LoadActivities(string json);
 		public void LoadEntries(string json);
-
+		string currDate { get; set; }
 		Entries Entries { get; set; }
+		Entries ReportEntries { get; set; }
 		DateTime CurrentDate { get; set; }
 
 		int Index { get; set; }

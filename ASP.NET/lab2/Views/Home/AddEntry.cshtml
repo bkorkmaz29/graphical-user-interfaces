@@ -15,29 +15,6 @@
         <div class="text-center col-md-6">
             <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
         </div>
-        @*<div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Code :   </span>
-            </div>
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Active Codes
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-
-                </div>
-            </div>
-        </div>*@
-        @*<div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Date :   </span>
-            </div>
-            <input asp-for="Code" type="text" class="form-control" placeholder="Enter Code">
-        </div>*@
-
-
-
         <div class="input-group mb-1">
             <div class="input-group-prepend">
                 <span class="input-group-text">Code :   </span>
@@ -51,28 +28,6 @@
             <input data-val="true" data-val-required="Code is required"
                    id="Code" name="Code" type="hidden" value=@ViewData["code"] />
         </div>
-
-
-
-        <!--<div class="input-group mb-2">-->
-        @*<div class="btn-group">
-            <a class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" href="#">Codes <span class="caret"></span></a>
-            <div class="dropdown-menu">
-                @foreach (var d in Model.Codes)
-                {
-                    <li><a class="dropdown-item">@d</a></li>
-                }
-            </div>
-        </div>*@
-
-        <!--</div>-->
-        @*<div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text">Date :   </span>
-            </div>
-            <input asp-for="Date" type="text" class="form-control" placeholder="Enter Date">
-        </div>*@
-
         <div class="input-group mb-2">
             <div class="input-group-prepend">
                 <span class="input-group-text">Date :   </span>
@@ -85,7 +40,7 @@
             <div class="input-group-prepend">
                 <span class="input-group-text">Time :  </span>
             </div>
-            <input asp-for="Time" type="text" class="form-control" placeholder="Enter Time Spent">
+            <input asp-for="Time" type="number" class="form-control" placeholder="Enter Time Spent">
         </div>
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -106,6 +61,7 @@
         </div>
     </div>
 </form>
+
 @section Scripts{
 
     <script>

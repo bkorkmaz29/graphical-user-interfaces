@@ -22,10 +22,14 @@ namespace lab2.Models
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd}")]
         public DateTime CurrentDate { get; set; }
 
+        public string currDate { get; set; }
+
+
         public Activities Activities { get; set; }
 
-       
-        public Entries Entries { get; set; }
+
+        public Entries Entries { get; set; } = new();
+        public Entries ReportEntries { get; set; } = new();
 
         public List<string> Codes { get; set; } = new();
 
@@ -51,19 +55,24 @@ namespace lab2.Models
         public void LoadEntries(string json)
         {
 
-            Entries = JsonConvert.DeserializeObject<Entries>(json);
+           Entries = JsonConvert.DeserializeObject<Entries>(json);
 
 
         }
         public void addDaily()
         {
             dailyEntries.Clear();
-            foreach(var i in Entries.EntryList)
+            if (Entries.EntryList != null)
             {
-                if (i.Date == CurrentDate.ToString("yyyy-MM-dd")){
-                    dailyEntries.Add(i); }
+                foreach (var i in Entries.EntryList)
+                {
+                    if (i.Date == CurrentDate.ToString("yyyy-MM-dd"))
+                    {
+                        dailyEntries.Add(i);
+                    }
 
 
+                }
             }
         }
 
