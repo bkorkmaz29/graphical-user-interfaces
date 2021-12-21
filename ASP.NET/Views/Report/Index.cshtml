@@ -1,0 +1,53 @@
+﻿
+@model lab2.Models.Report
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+<div class="form-row pb-5">
+    <form id="MonthForm" asp-controller="Report" asp-action="Index" method="get" class="form-row" onchange='submitForm()'>
+        <select id="monthselect" class="form-control" name="monthselect">
+            <option hidden>Select a month</option>
+            @foreach (var d in Model.Months)
+            {
+                <option value=@d>@d</option>
+            }
+        </select>
+    </form>
+    
+</div>
+
+
+<table class="table table-bordered">
+
+    <tbody>
+        <tr>
+            <th>Project</th>
+            <th>Time Spent</th>
+        </tr>
+        @foreach (var i in Model.TimeSpent)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Key)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => i.Value)
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+@section Scripts
+{
+    <script>
+        function submitForm() {
+            $("#MonthForm").submit();
+        }
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model lab2.Models.Entry
+@inject lab2.Models.ISessionManager _sessionManager
+
+@{
+    ViewData["Title"] = "EditEntry";
+}
+
+<form method="post" asp-action="Edit">
+    <div class="border p-3">
+        <div class:"form-group row">
+            <h2 class="text-black-50 pl-3">Edit Entry</h2>
+        </div>
+        <div class="text-center col-md-6">
+            <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Code :   </span>
+            </div>
+            @Html.TextBoxFor(m => m.Code, new { @readonly = "readonly" })
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Date :   </span>
+            </div>
+            @Html.TextBoxFor(m => m.Date, new { @readonly = "readonly" })
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Time :  </span>
+            </div>
+            <input asp-for="Time" type="text" class="form-control" value=@Model.Time>
+        </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Description :   </span>
+            </div>
+            <input asp-for="Description" type="text" class="form-control" value=@Model.Description>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-8 offset-2 row">
+            <div class="col">
+                <input type="submit" class="btn btn-info w-75" value="Edit" />
+            </div>
+            <div class="col">
+                <a asp-action="Index" class="btn btn-danger w-75">Back</a>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,119 @@
+﻿@model lab2.Models.SessionManager
+@inject lab2.Models.ISessionManager depservice
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<div class="container border-3">
+    <div class="d-flex justify-content-center">
+        <div class="border m-3">
+            <div class="column">
+                <div class="form-control" style="text-align:center">
+                    <span class="font-weight-bold">Select Date</span>
+                </div>
+            </div>
+            <form id="DateForm" asp-controller="Home" asp-action="Index" method="post" class="form-row">
+                <input  id="StringDate" name="StringDate" style="text-align:center" type="text" class="form-control" value="@(Model.CurrentDate.ToString("yyyy-MM-dd"))"  readonly />
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center col-md-6">
+    <div class="classWithPad">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</div>
+</div>
+<div class="container">
+    <a asp-controller="Home" asp-action="AddEntry" class="btn btn-info btn-block">Add Entry</a>
+    <table class="table table-bordered">
+        <tr>
+            <th>Code</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Time</th>
+        </tr>
+        <tbody>
+            @{int EditIndex = 0; int count = 0;}
+            @foreach (var item in Model.dailyEntries)
+            {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Code)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                  
+                        <a asp-action="EditEntry" asp-controller="Home" asp-route-id=@item.Id  class="btn btn-primary form-control">Edit</a>
+
+                    
+                </td>
+                
+                <td>
+                    
+                    <button class="btn btn-danger form-control" type="button" onclick="location.href='@Url.Action("DeleteEntry", "Home", new { id = item.Id })'">
+                        Delete
+                    </button>
+
+
+                </td>
+            </tr>
+                EditIndex++;
+                count += item.Time;
+
+            }
+
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td class="font-weight-bold">
+                    Total Time Spent = <span class="text-danger">@count</span>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>
+    
+            $(function () {
+                $("#StringDate").datepicker({
+                    dateFormat: "yy-mm-dd"
+                });
+            });
+        
+        $("#DateForm").change(function () {
+            $(this).closest('form').submit();
+        });
+
+    </script>
+
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+}

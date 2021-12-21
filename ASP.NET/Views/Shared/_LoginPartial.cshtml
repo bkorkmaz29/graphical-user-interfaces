@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject lab2.Models.ISessionManager _sessionManager
+
+<ul class="navbar-nav">
+    <li class="nav-item">
+        <mark class="nav-link font-weight-bold text-dark">Welcome <span class="text-danger">@_sessionManager.UserName</span></mark>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold text-dark pl-2" asp-controller="Home" asp-action="Login" id="loginbtn">Change User</a>
+    </li>
+</ul>
