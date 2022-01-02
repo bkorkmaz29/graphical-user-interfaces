@@ -1,10 +1,11 @@
 import Entry from './Entry';
 
-const Entries = ({ entries, onDelete}) => {
+
+const Entries = ({ entries, onAdd, onDelete}) => {
   return (
     <div>
      {entries.map((entry, index) => (
-        <Entry key={index} entry={entry} onDelete={onDelete} />
+        <Entry key={entry.id} entry={entry} onAdd={onAdd} onDelete={onDelete}  />
       ))}
     </div>
   )
