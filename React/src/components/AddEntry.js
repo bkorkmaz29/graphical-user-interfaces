@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const AddEntry = ({ onAdd }) => {
+const AddEntry = ({ onAddEntry }) => {
   const [code, setCode] = useState('')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
@@ -14,7 +14,7 @@ const AddEntry = ({ onAdd }) => {
       return
     }
 
-    onAdd({ code, date, time, description })
+    onAddEntry({ code, date, time, description })
 
     setCode('')
     setDate('')
@@ -23,45 +23,36 @@ const AddEntry = ({ onAdd }) => {
   }
 
   return (
-    <form className='add-form' onSubmit={onSubmit}>
-      <div className='form-control'>
-        <label>Task :</label>
+    <form className='m-3 bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
+      <div>
         <input
           type='text'
           placeholder='Enter Code'
           value={code}
           onChange={(e) => setCode(e.target.value)}
+          className='mt-1'
         />
       </div>
-      <div className='form-control'>
-        <label>Date :</label>
+      <div>
         <input
           type='text'
-          placeholder='Enter Date'
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-        />
-      </div>
-      <div className='form-control'>
-        <label>Time :</label>
-        <input
-          type='integer'
           placeholder='Enter Time'
           value={time}
           onChange={(e) => setTime(e.target.value)}
+          className='mt-1'
         />
       </div>
-      <div className='form-control'>
-        <label>Description :</label>
+      <div>
         <input
           type='text'
           placeholder='Enter Description'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
+         <input class='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600 '  type='submit' value='Add Entry'/>
       </div>
 
-      <input type='submit' value='Add Entry' className='btn btn-block' />
+     
     </form>
   )
 }

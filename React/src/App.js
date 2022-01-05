@@ -1,47 +1,31 @@
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { axios } from "axios";
+
 import Header from './components/Header';
 import Entries from './components/Entries';
 import AddEntry from './components/AddEntry';
+import AddProject from './components/AddProject';
 import Control from './components/Control';
-import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
+import Footer from './components/Footer';
+import Sidebar from './components/Sidebar';
+import './App.css'
+
+
+
 const App = () => {
+  const [showAddEntry, setShowAddEntry] = useState(false)
+  const [showAddProject, setShowAddProject] = useState(false)
+  const [projects, setProjects] = useState([])
+  const [entries, setEntries] = useState([])
 
 
-  const [entries, setEntries] = useState([ {
-    "id": uuidv4(),
-    "date": "2021-11-07 ",
-    "code": "ARGUS-123 ",
-    "time": 45,
-    "description": "data import "
-},
-{
-    "id": uuidv4(),
-    "date": "2021-11-07 ",
-    "code": "OTHER ",
-    "time": 120,
-    "description": "picie kawy "
-},
-{
-    "id": uuidv4(),
-    "date": "2021-11-08 ",
-    "code": "ARGUS-123 ",
-    "time": 45,
-    "description": "kompilacja "
-},
-{
-    "id": uuidv4(),
-    "date": "2021-11-08 ",
-    "code": "OTHER ",
-    "time": 120,
-    "description": "office arrangement "
-},
-{
-    "id": uuidv4(),
-    "date": "2021-11-12 ",
-    "code": "ARGUS-123 ",
-    "time": 45,
-    "description": "project meeting "
-}])
+
+const addProject = (project) => {
+  setProjects([...projects, setProjects])
+}
+
   const addEntry = (entry) => {
     const id = uuidv4();
     const newEntry = {id,...entry}
@@ -51,18 +35,38 @@ const App = () => {
 
   const deleteEntry = (id) => {
     setEntries(entries.filter((entry) => entry.id !== id))
-    
-    //console.log(key)
+
   }
 
   return (
-    <div className="container">
-     <Header/>
-     <Control/>
-     <AddEntry onAdd={addEntry}/>
-     <Entries entries={entries} onDelete={deleteEntry} />
+    <Router>
+      <div class='relative flex flex-row justify-center items-center'>
+      <Sidebar/>
+    <div class="flex flex-col justify-center items-center w-1/2"  >
+      
      
+     <Control onAddEntry={() => setShowAddEntry(!showAddEntry)} onAddProject={() => setShowAddProject(!showAddProject)}/>
+      <Routes>
+      <Route path='/'
+     element = {   <>
+      {showAddEntry && <AddEntry onAdd={addEntry}/>}
+      {showAddProject && <AddProject onAdd={addProject}/>}
+      {entries.length > 0 ? (
+      <Entries entries={entries} onDelete={deleteEntry} />)
+      : (
+         'No Tasks To Show'
+        )}
+     </>
+
+   } />
+
+     </Routes>
+     <div class='self-end'>
+    
+     </div>
+     </div>
     </div>
+    </Router>
   );
 }
 

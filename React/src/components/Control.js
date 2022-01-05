@@ -1,17 +1,15 @@
 import React from 'react'
 import Button from './Button'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import { useState } from 'react'
 
-const Control = () => {
+const Control = ({onAddProject, onAddEntry}) => {
     const [startDate, setStartDate] = useState(new Date());
     return (
-        <div className="controller">
+        <div className="flex bg-indigo-50 mx-auto outline outline-secondary content-center m-6 rounded">
              
-        <span>Select Date</span> <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-        <Button color="green" text="Add Project"/>
-        <Button color="blue" text="Add Entry"/>
+        <input type='date'/>
+        <Button color="green" text="Add Project" onClick={onAddProject}/>
+        <Button color="green" text="Add Entry" onClick={onAddEntry}/>
         
          </div> 
       
