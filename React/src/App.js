@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { axios } from "axios";
+import axios from 'axios';
 
 import Header from './components/Header';
+import UpdateEntry from './components/UpdateEntry';
 import Entries from './components/Entries';
 import AddEntry from './components/AddEntry';
 import AddProject from './components/AddProject';
 import Control from './components/Control';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 import './App.css'
 
 
@@ -17,55 +19,102 @@ import './App.css'
 const App = () => {
   const [showAddEntry, setShowAddEntry] = useState(false)
   const [showAddProject, setShowAddProject] = useState(false)
+  const [showUpdateEntry, setShowUpdateEntry] = useState(false)
+  const [date, setDate] = useState('')
   const [projects, setProjects] = useState([])
   const [entries, setEntries] = useState([])
+  const [entry, setEntry] = useState()
 
+  function fetchEntries() {
 
+    axios.get('http://localhost:5000/entries')
+      .then(res => {
+        setEntries(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
 
-const addProject = (project) => {
-  setProjects([...projects, setProjects])
-}
+  }
 
-  const addEntry = (entry) => {
-    const id = uuidv4();
-    const newEntry = {id,...entry}
+  useEffect(() => fetchEntries(), [])
+  /*
+    function ProjectFetch() {
+      useEffect(() => {
+        axios.get('http://localhost:5000/projects')
+        .then(res => {
+          setProjects(res.data)
+        })
+        .catch(err =>{
+          console.log(err)
+        })
+      }
+      )
+    }
+  */
+
+  const addProject = (project) => {
+    setProjects([...projects, setProjects])
+  }
+
+  const addEntry = async (entry) => {
+    let id = uuidv4();
+    let newEntry = {...entry, date, id}
+
     setEntries([...entries, newEntry])
 
+    axios.post(`http://localhost:5000/entries`, newEntry)
   }
 
   const deleteEntry = (id) => {
     setEntries(entries.filter((entry) => entry.id !== id))
+    axios.delete(`http://localhost:5000/entries/${id}`)
+  }
+
+  const updateEntry = (entry) => {
+    
+    axios.patch(`http://localhost:5000/entries/${entry.id}` )
+  }
+
+  const showUpdate = (entry) => {
+    setEntry(entry)
+    setShowUpdateEntry(!showUpdateEntry);
+
 
   }
 
   return (
     <Router>
-      <div class='relative flex flex-row justify-center items-center'>
-      <Sidebar/>
-    <div class="flex flex-col justify-center items-center w-1/2"  >
-      
-     
-     <Control onAddEntry={() => setShowAddEntry(!showAddEntry)} onAddProject={() => setShowAddProject(!showAddProject)}/>
-      <Routes>
-      <Route path='/'
-     element = {   <>
-      {showAddEntry && <AddEntry onAdd={addEntry}/>}
-      {showAddProject && <AddProject onAdd={addProject}/>}
-      {entries.length > 0 ? (
-      <Entries entries={entries} onDelete={deleteEntry} />)
-      : (
-         'No Tasks To Show'
-        )}
-     </>
+      <div className='relative grid justify-center items-center'>
+      <Sidebar />
+      <div className='visible lg:invisible'><Navbar/></div>  
+        <div className="flex flex-col justify-center items-center w-full"  >
 
-   } />
+          <div className=''>
+            <Control onAddEntry={() => { setShowAddEntry(!showAddEntry); setShowAddProject(false) }}
+              onAddProject={() => { setShowAddProject(!showAddProject); setShowAddEntry(false) }} 
+              onUpdateEntry={() => { setShowUpdateEntry(!showAddProject); setShowUpdateEntry(false) }} 
+              onChangeDate={(e) => setDate(e.target.value)} 
+            />
+            <Routes>
+              <Route path='/'
+                element={<>
+                  {showAddEntry && <AddEntry onAddEntry={addEntry} />}
+                  {showAddProject && <AddProject onAdd={addProject} />}
+                  {showUpdateEntry && <UpdateEntry onUpdateEntry={updateEntry} entry={entry} />}
 
-     </Routes>
-     <div class='self-end'>
-    
-     </div>
-     </div>
-    </div>
+                </>
+
+                } />
+
+            </Routes>
+            <Entries entries={entries} onUpdate={showUpdate} onDelete={deleteEntry} />
+          </div>
+          <div>
+
+          </div>
+        </div>
+      </div>
     </Router>
   );
 }

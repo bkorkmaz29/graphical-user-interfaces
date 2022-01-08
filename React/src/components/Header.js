@@ -5,9 +5,9 @@ const Header = ({ title, onAdd, showAdd }) => {
    
 
   return (
-    <div class="flex justify-center items-center justify-items-start m-3">
+    <div className="flex justify-center items-center justify-items-start m-3">
     <header>
-      <h1  class="text-3xl font-bold text-primary">{title}</h1>
+      <h1  className="text-3xl font-bold text-primary">{title}</h1>
     </header>
     </div>
   )

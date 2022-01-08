@@ -1,23 +1,15 @@
 import { useState } from 'react'
 
-const AddEntry = ({ onAddEntry }) => {
-  const [code, setCode] = useState('')
-  const [time, setTime] = useState('')
-  const [description, setDescription] = useState('')
+const UpdateEntry = ({ onUpdateEntry, entry }) => {
+  const [code, setCode] = useState(entry.code)
+  const [time, setTime] = useState(entry.time)
+  const [description, setDescription] = useState(entry.description)
 
   const onSubmit = (e) => {
     e.preventDefault()
 
-    if (!code) {
-      alert('Please enter a code')
-      return
-    }
+    onUpdateEntry({ code, time, description })
 
-    onAddEntry({ code, time, description })
-
-    setCode('')
-    setTime('')
-    setDescription('')
   }
 
   return (
@@ -47,7 +39,7 @@ const AddEntry = ({ onAddEntry }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-         <input className='w-1/4  bg-yellow-500 p-3 ml-7 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600 ' type='submit' value='Submit'/>
+         <input className='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600 ' type='submit' value='Update'/>
       </div>
 
      
@@ -55,4 +47,4 @@ const AddEntry = ({ onAddEntry }) => {
   )
 }
 
-export default AddEntry
+export default UpdateEntry
