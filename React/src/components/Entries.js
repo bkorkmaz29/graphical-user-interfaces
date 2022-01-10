@@ -4,7 +4,7 @@ import Entry from './Entry';
 
 const Entries = ({ entries, onAdd, onUpdate, onDelete}) => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="basis-3/4  w-1/2 ">
      {entries.map((entry, index) => (
         <Entry key={entry.id} entry={entry} onAdd={onAdd} onUpdate={onUpdate} onDelete={onDelete}  />
       ))}

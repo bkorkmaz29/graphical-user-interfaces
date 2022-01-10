@@ -11,6 +11,7 @@ import AddProject from './components/AddProject';
 import Control from './components/Control';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
+
 import Navbar from './components/Navbar';
 import './App.css'
 
@@ -24,6 +25,7 @@ const App = () => {
   const [projects, setProjects] = useState([])
   const [entries, setEntries] = useState([])
   const [entry, setEntry] = useState()
+  const [projectCodes, setProjectCodes] = useState([])
 
   function fetchEntries() {
 
@@ -37,7 +39,7 @@ const App = () => {
 
   }
 
-  useEffect(() => fetchEntries(), [])
+ // useEffect(() => fetchEntries(), [])
   /*
     function ProjectFetch() {
       useEffect(() => {
@@ -55,11 +57,13 @@ const App = () => {
 
   const addProject = (project) => {
     setProjects([...projects, setProjects])
+    setProjectCodes([ ...projectCodes, project.code])
+    console.log(projectCodes)
   }
 
   const addEntry = async (entry) => {
     let id = uuidv4();
-    let newEntry = {...entry, date, id}
+    let newEntry = { ...entry, date, id }
 
     setEntries([...entries, newEntry])
 
@@ -72,8 +76,8 @@ const App = () => {
   }
 
   const updateEntry = (entry) => {
-    
-    axios.patch(`http://localhost:5000/entries/${entry.id}` )
+
+    axios.patch(`http://localhost:5000/entries/${entry.id}`)
   }
 
   const showUpdate = (entry) => {
@@ -85,34 +89,31 @@ const App = () => {
 
   return (
     <Router>
-      <div className='relative grid justify-center items-center'>
-      <Sidebar />
-      <div className='visible lg:invisible'><Navbar/></div>  
-        <div className="flex flex-col justify-center items-center w-full"  >
+      <div className='flex flex-row justify-start w-screen'>
+        <Sidebar />
 
-          <div className=''>
+       
+
+        <div className='flex flex-col justify-center items-center basis-5/6'  >
+
+          <div className='basis-1/4'>
             <Control onAddEntry={() => { setShowAddEntry(!showAddEntry); setShowAddProject(false) }}
-              onAddProject={() => { setShowAddProject(!showAddProject); setShowAddEntry(false) }} 
-              onUpdateEntry={() => { setShowUpdateEntry(!showAddProject); setShowUpdateEntry(false) }} 
-              onChangeDate={(e) => setDate(e.target.value)} 
+              onAddProject={() => { setShowAddProject(!showAddProject); setShowAddEntry(false) }}
+              onUpdateEntry={() => { setShowUpdateEntry(!showAddProject); setShowUpdateEntry(false) }}
+              onChangeDate={(e) => setDate(e.target.value)}
             />
             <Routes>
               <Route path='/'
                 element={<>
-                  {showAddEntry && <AddEntry onAddEntry={addEntry} />}
-                  {showAddProject && <AddProject onAdd={addProject} />}
+                  {showAddEntry && <AddEntry onAddEntry={addEntry} projectCodes={projectCodes} />}
+                  {showAddProject && <AddProject onAddProject={addProject} />}
                   {showUpdateEntry && <UpdateEntry onUpdateEntry={updateEntry} entry={entry} />}
-
                 </>
-
                 } />
-
             </Routes>
+            </div>
             <Entries entries={entries} onUpdate={showUpdate} onDelete={deleteEntry} />
-          </div>
-          <div>
-
-          </div>
+          
         </div>
       </div>
     </Router>

@@ -58,10 +58,10 @@ const AddProject = ({ onAddProject }) => {
           value={budget}
           onChange={(e) => setBudget(e.target.value)}
         />
-        <input className='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600' type='submit' value='Submit'/>
+        <input className='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600' type='submit' value='Submit' />
       </div>
 
-      
+
     </form>
   )
 }
