@@ -12,7 +12,7 @@ const Sidebar = () => {
 
 const Option = ({ text }) => {
     return (
-        <div className='bg-blue-500 text-lg  h-16 w-full items-center text-center p-5  hover:bg-blue-300 text-white hover:text-xl hover:text-black cursor-pointer'>
+        <div className='bg-blue-500 text-lg  h-16 w-full items-center text-center p-5  hover:bg-blue-300 text-white hover:text-black cursor-pointer'>
             {text}
         </div>
     )

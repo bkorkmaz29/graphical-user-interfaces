@@ -4,11 +4,18 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
   const [code, setCode] = useState(entry.code)
   const [time, setTime] = useState(entry.time)
   const [description, setDescription] = useState(entry.description)
+  const [date, setDate] = useState(entry.date)
+  const [id, setId] = useState(entry.id)
 
   const onSubmit = (e) => {
     e.preventDefault()
 
-    onUpdateEntry({ code, time, description })
+    onUpdateEntry({ code, time, description, date, id })
+    setCode('')
+    setTime('')
+    setDate('')
+    setId('')
+    setDescription('')
 
   }
 
@@ -18,8 +25,7 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
         <input
           type='text'
           placeholder='Enter Code'
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
+          readonly value={code}
           className='mt-1'
         />
       </div>

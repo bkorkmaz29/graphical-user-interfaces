@@ -2,21 +2,22 @@ import { useState } from 'react'
 import Select from 'react-select'
 
 const AddEntry = ({ onAddEntry, projectCodes }) => {
-  const [code, setCode] = useState('aa')
+  const [code, setCode] = useState('')
   const [time, setTime] = useState('')
   const [description, setDescription] = useState('')
 
-  const opts = []
+  let opts = []
 
        projectCodes.forEach(element => {
-      opts.push ( { value: element, label: element })
+
+      const obj = ( { value: element, label: element })
+
+      opts = [...opts, obj]
     });
   
 
-
   const onSubmit = (e) => {
     e.preventDefault()
-
 
 
     if (!code) {
@@ -32,7 +33,7 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
   }
 
   return (
-    <form className='m-3 bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
+    <form className='bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
 
 
       <div className='grid grid-cols-2 gap-3'>
@@ -41,9 +42,7 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
             options={opts}
             onChange={(e) => setCode(e.value)}
             placeholder='Select Code'
-
           />
-
           <input
             type='text'
             placeholder='Enter Time'
