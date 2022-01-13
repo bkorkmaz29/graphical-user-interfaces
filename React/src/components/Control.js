@@ -3,7 +3,7 @@ import Button from './Button'
 import TimeSpent from './TimeSpent';
 import { useState } from 'react'
 
-const Control = ({ onAddProject, onAddEntry, onChangeDate, onUpdateEntry }) => {
+const Control = ({ onAddProject, onAddEntry, onChangeDate, onUpdateEntry, timeSpent }) => {
 
 
     let date = new Date();
@@ -17,7 +17,7 @@ const Control = ({ onAddProject, onAddEntry, onChangeDate, onUpdateEntry }) => {
                     <Button color="green" text="Add Entry" onClick={onAddEntry} />
                 </div>
 
-            <TimeSpent timeSpent={12} />
+            <TimeSpent timeSpent={timeSpent} />
             </div>
         </div>
     )

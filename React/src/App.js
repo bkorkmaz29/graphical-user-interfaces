@@ -11,9 +11,9 @@ import AddProject from './components/AddProject';
 import Control from './components/Control';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
-
 import Navbar from './components/Navbar';
 import './App.css'
+import TimeSpent from './components/TimeSpent';
 
 
 
@@ -22,42 +22,79 @@ const App = () => {
   const [showAddProject, setShowAddProject] = useState(false)
   const [showUpdateEntry, setShowUpdateEntry] = useState(false)
   const [projects, setProjects] = useState([])
-  const [entries, setEntries] = useState([])
+  //const [entries, setEntries] = useState([])
   const [entry, setEntry] = useState()
   const [projectCodes, setProjectCodes] = useState([])
   const [dailyEntries, setDailyEntries] = useState([])
+  const [timeSpent, setTimeSpent] = useState(0)
 
   let a = new Date();
   let newDate = a.toISOString().split('T')[0];
   const [date, setDate] = useState(newDate);
- 
-/*
+
+
     useEffect(() => {
        axios 
         .get("http://localhost:5000/entries")
         .then((res) => {
-          setEntries(res.data);
+          setDailyEntries(res.data.filter((entry) => entry.date === date));          
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
+        
     }, []);
-*/
+
+    useEffect(() => {
+      axios 
+       .get("http://localhost:5000/entries")
+       .then((res) => {
+         setDailyEntries(res.data.filter((entry) => entry.date === date));          
+       })
+       .catch((err) => {
+         console.log(err);
+       })
+       
+   }, [date]);
+
+    useEffect(() => {
+
+
+         let sumAll = dailyEntries.map(entry => parseInt(entry.time)).reduce((prev, curr) => prev + curr, 0);
+         setTimeSpent(sumAll);
+
+         
+
+
+   }, []);
+
+
+    useEffect(() => {
+      axios 
+       .get("http://localhost:5000/projects")
+       .then((res) => {
+         setProjects(res.data);
+       })
+       .catch((err) => {
+         console.log(err);
+       });
+   }, []);
+
 useEffect(() => {
-  setDailyEntries(entries.filter((entry) => entry.date === date))
+  setProjectCodes(projects.map(project => project.code))
   return () => {
     console.log("done daily")
   }
-}, [date, entries] )
+},[])
 
 
 
-  const addProject = (project) => {
+  const addProject = async (project) => {
     setShowAddProject(!showAddProject)
-    setProjects([...projects, setProjects])
+    //setProjects([...projects, setProjects])
     setProjectCodes([ ...projectCodes, project.code])
 
-    axios.post(`http://localhost:5000/entries`, project)
+    axios.post(`http://localhost:5000/projects`, project)
   }
 
   const addEntry = async (entry) => {
@@ -66,22 +103,22 @@ useEffect(() => {
     let newEntry = { ...entry, date, id }
     
 
-    setEntries([...entries, newEntry])
+   // setEntries([...entries, newEntry])
     axios.post(`http://localhost:5000/entries`, newEntry)
   }
 
-  const deleteEntry = (id) => {
-    setEntries(entries.filter((entry) => entry.id !== id))
-    axios.delete(`http://localhost:5000/entries/${id}`)
-  }
+  const deleteEntry = async (id) => {
+    // setEntries(entries.filter((entry) => entry.id !== id))
+     axios.delete(`http://localhost:5000/entries/${id}`)
+   }
 
-  const updateEntry = (newEntry) => {
-    console.log(newEntry.id)
-    setEntries(entries.filter((e) => e.id !== entry.id))
+  const updateEntry = async (newEntry) => {
+   // console.log(newEntry.id)
+   // setEntries(entries.filter((e) => e.id !== entry.id))
   
-    console.log(newEntry)
-    setEntries([...entries, newEntry])
-    axios.patch(`http://localhost:5000/entries/${newEntry.id}`)
+    //console.log(newEntry)
+    //setEntries([...entries, newEntry])
+    axios.patch(`http://localhost:5000/entries/${newEntry.id}`, {code : newEntry.code, time : newEntry.time, description : newEntry.description })
     setShowUpdateEntry(!showUpdateEntry);
   }
 
@@ -113,6 +150,8 @@ useEffect(() => {
                 setShowUpdateEntry(false);
               }}
               onChangeDate={(e) => setDate(e.target.value)}
+              timeSpent={timeSpent}
+              
             />
             <Routes>
               <Route

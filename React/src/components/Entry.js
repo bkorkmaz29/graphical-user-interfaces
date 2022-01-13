@@ -3,8 +3,8 @@ import { FaEdit } from 'react-icons/fa'
 
 const Entry = ({ entry, onUpdate, onDelete }) => {
   return (
-    <div className="flex flex-row rounded bg-neutral-300  outline hover:bg-indigo-200 ">
-      <div className="flex flex-col basis-3/4 m-1 bg-white rounded outline-dashed items-center">
+    <div className="flex flex-row rounded bg-neutral-100  m-1 outline hover:bg-indigo-200 ">
+      <div className="flex flex-col basis-3/4 m-1 bg-white rounded  items-center">
         <h2>
           <span className="font-semibold text-xl ">{entry.code}</span>
         </h2>
