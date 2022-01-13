@@ -33,7 +33,7 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
   }
 
   return (
-    <form className='bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
+    <form className='bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3 mb-2' onSubmit={onSubmit}>
 
 
       <div className='grid grid-cols-2 gap-3'>

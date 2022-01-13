@@ -27,12 +27,12 @@ const App = () => {
   const [projectCodes, setProjectCodes] = useState([])
   const [dailyEntries, setDailyEntries] = useState([])
   const [timeSpent, setTimeSpent] = useState(0)
-
   let a = new Date();
   let newDate = a.toISOString().split('T')[0];
   const [date, setDate] = useState(newDate);
+ 
 
-
+/*
     useEffect(() => {
        axios 
         .get("http://localhost:5000/entries")
@@ -48,15 +48,38 @@ const App = () => {
     useEffect(() => {
       axios 
        .get("http://localhost:5000/entries")
+       .get("http://localhost:5000/projects")
        .then((res) => {
-         setDailyEntries(res.data.filter((entry) => entry.date === date));          
+         setDailyEntries(res.data.filter((entry) => entry.date === date));    
+         setProjects(res.data);
+         setProjectCodes(projects.map(project => project.code));      
        })
        .catch((err) => {
          console.log(err);
        })
        
-   }, [date]);
+   }, [date]);*/
 
+   useEffect(() => {
+    const fetchData = async () => {
+      const resEntry = await axios(
+        `http://localhost:5000/entries`
+      );
+      const resProject = await axios(
+        `http://localhost:5000/projects`
+      );
+      setDailyEntries(resEntry.data.filter((entry) => entry.date === date));    
+      setProjectCodes(resProject.data.map(project => project.code));   
+      let sumAll = resEntry.data.filter((entry) => entry.date === date).map(entry => parseInt(entry.time)).reduce((prev, curr) => prev + curr, 0);
+      setTimeSpent(sumAll); 
+    };
+
+    fetchData();
+  }, [date, showAddEntry, showAddProject, showUpdateEntry]);
+
+
+
+/*
     useEffect(() => {
 
 
@@ -69,55 +92,48 @@ const App = () => {
    }, []);
 
 
-    useEffect(() => {
-      axios 
-       .get("http://localhost:5000/projects")
-       .then((res) => {
-         setProjects(res.data);
-       })
-       .catch((err) => {
-         console.log(err);
-       });
-   }, []);
+
 
 useEffect(() => {
-  setProjectCodes(projects.map(project => project.code))
+  
+  
   return () => {
     console.log("done daily")
   }
-},[])
-
+},[])*/
 
 
   const addProject = async (project) => {
     setShowAddProject(!showAddProject)
     //setProjects([...projects, setProjects])
-    setProjectCodes([ ...projectCodes, project.code])
+    //setProjectCodes([ ...projectCodes, project.code])
 
     axios.post(`http://localhost:5000/projects`, project)
   }
 
   const addEntry = async (entry) => {
     setShowAddEntry(!showAddEntry);
+    setEntry(entry);
     let id = uuidv4();
     let newEntry = { ...entry, date, id }
     
 
    // setEntries([...entries, newEntry])
+   // setDailyEntries(...dailyEntries, entry);  
     axios.post(`http://localhost:5000/entries`, newEntry)
   }
 
   const deleteEntry = async (id) => {
-    // setEntries(entries.filter((entry) => entry.id !== id))
+    setDailyEntries(dailyEntries.filter((entry) => entry.id !== id))
      axios.delete(`http://localhost:5000/entries/${id}`)
    }
 
   const updateEntry = async (newEntry) => {
    // console.log(newEntry.id)
-   // setEntries(entries.filter((e) => e.id !== entry.id))
+    //setEntries(entries.filter((e) => e.id !== entry.id))
   
     //console.log(newEntry)
-    //setEntries([...entries, newEntry])
+   // setEntries([...entries, newEntry])
     axios.patch(`http://localhost:5000/entries/${newEntry.id}`, {code : newEntry.code, time : newEntry.time, description : newEntry.description })
     setShowUpdateEntry(!showUpdateEntry);
   }
@@ -131,8 +147,8 @@ useEffect(() => {
 
   return (
     <Router>
-      <div className="flex flex-row justify-start w-screen">
-        <Sidebar />
+      <div className="flex flex-col justify-start w-screen">
+      <Navbar />
 
         <div className="flex flex-col justify-center items-center basis-5/6">
           <div className="basis-1/4">

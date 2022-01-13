@@ -10,11 +10,11 @@ const Control = ({ onAddProject, onAddEntry, onChangeDate, onUpdateEntry, timeSp
 
     return (
         <div className='grid grid-flow-row grid-rows-1 m-3 rounded'>
-            <div className="grid bg-indigo-50 mx-auto outline outline-secondary content-center m-6 rounded">
-                <div className='outline outline-secondary rounded  mb-2'>
+            <div className="grid bg-slate-700 mx-auto p-1 content-center m-6 rounded shadow-lg">
+                <div className=' mb-2'>
                     <input type='date' defaultValue={date.toISOString().split('T')[0]} onChange={onChangeDate} />
-                    <Button color="green" text="Add Project" onClick={onAddProject} />
-                    <Button color="green" text="Add Entry" onClick={onAddEntry} />
+                    <Button text="Add Project" onClick={onAddProject} />
+                    <Button text="Add Entry" onClick={onAddEntry} />
                 </div>
 
             <TimeSpent timeSpent={timeSpent} />

@@ -23,7 +23,7 @@ const AddProject = ({ onAddProject }) => {
   }
 
   return (
-    <form className='m-3 bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
+    <form className='m-3 bg-secondary bg-opacity-25 rounded-md outline  p-3' onSubmit={onSubmit}>
       <div>
         <input
           type='text'

@@ -20,14 +20,9 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
   }
 
   return (
-    <form className='m-3 bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
+    <form className='grid grid-cols-2 gap-3 m-3 bg-blue-400 bg-opacity-25 rounded-md outline outline-blue-500 p-3' onSubmit={onSubmit}>
       <div>
-        <input
-          type='text'
-          placeholder='Enter Code'
-          readonly value={code}
-          className='mt-1'
-        />
+        <label> <span className='font-bold'>Code: </span> {code} </label>
       </div>
       <div>
         <input
@@ -45,7 +40,7 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-         <input className='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600 ' type='submit' value='Update'/>
+         <input className='bg-yellow-500 p-3 ml-3 rounded mt-1 outline outline-white cursor-pointer hover:bg-yellow-600  ' type='submit' value='Update'/>
       </div>
 
      
