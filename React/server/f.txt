@@ -1,0 +1,8 @@
+    const jsonString = JSON.stringify(projects, null, 2)
+    writeFile('./projects.json', jsonString, err => {
+        if (err) {
+            console.log('Error writing file', err)
+        } else {
+            console.log('Successfully wrote file')
+        }
+    })
