@@ -1,7 +1,8 @@
 import { useState } from 'react'
 
-const UpdateEntry = ({ onUpdateEntry, entry }) => {
+const UpdateEntry = ({ onUpdateEntry, onBack, entry }) => {
   const [code, setCode] = useState(entry.code)
+  const [subcode, setSubcode] = useState(entry.subcode)
   const [time, setTime] = useState(entry.time)
   const [description, setDescription] = useState(entry.description)
   const [date, setDate] = useState(entry.date)
@@ -10,9 +11,10 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
   const onSubmit = (e) => {
     e.preventDefault()
 
-    onUpdateEntry({ code, time, description, date, id })
+    onUpdateEntry({ code, subcode, time, description, date, id })
     setCode('')
-    setTime('')
+    setSubcode('')
+    setTime(0)
     setDate('')
     setId('')
     setDescription('')
@@ -29,6 +31,15 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
           <div>
             <input
               type='text'
+              placeholder='Enter Subcode'
+              value={subcode}
+              onChange={(e) => setSubcode(e.target.value)}
+              className='mt-1'
+            />
+          </div>
+          <div>
+            <input
+              type='number'
               placeholder='Enter Time'
               value={time}
               onChange={(e) => setTime(e.target.value)}
@@ -42,11 +53,18 @@ const UpdateEntry = ({ onUpdateEntry, entry }) => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
-
           </div>
         </div>
-        <div className=' relative col-start-3 col-end-3 row-start-1 row-end-1 col-span-1'>
-          <input className='absolute bottom-0 w-full  bg-yellow-500 p-3 rounded outline outline-white cursor-pointer hover:bg-yellow-600 ' type='submit' value='Update' />
+
+        <div className=' relative flex flex-col justify-end col-start-3 col-end-3 row-start-1 row-end-1 col-span-1'>
+          <input className=' w-full  bg-yellow-500 p-3 m-1 rounded outline outline-white cursor-pointer hover:bg-yellow-600 '
+            type='submit'
+            value='Update'
+          />
+          <input className=' w-full  bg-red-600 m-1 p-3 rounded outline outline-white cursor-pointer hover:bg-red-700 '
+            type='button' value='Back'
+            onClick={onBack}
+          />
         </div>
       </div>
     </form>

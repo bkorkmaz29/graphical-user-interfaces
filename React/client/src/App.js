@@ -3,9 +3,6 @@ import Login from './components/Login'
 import Home from './components/Home/Home'
 import './App.css'
 
-
-
-
 const App = () => {
   return (
     <Router>

@@ -3,6 +3,7 @@ import Select from 'react-select'
 
 const AddEntry = ({ onAddEntry, projectCodes }) => {
   const [code, setCode] = useState('')
+  const [subcode, setSubcode] = useState('')
   const [time, setTime] = useState('')
   const [description, setDescription] = useState('')
 
@@ -25,10 +26,10 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
       return
     }
 
-  
-    onAddEntry({ code, time, description })
+    onAddEntry({ code, time, subcode, description })
 
     setCode('')
+    setSubcode('')
     setTime('')
     setDescription('')
   }
@@ -44,6 +45,14 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
             onChange={(e) => setCode(e.value)}
             placeholder='Select Code'
           />
+          <input
+            type='text'
+            placeholder='Enter Subcode'
+            value={subcode}
+            onChange={(e) => setSubcode(e.target.value)}
+            maxLength='10'
+          />
+      
           <input
             type='number'
             placeholder='Enter Time'

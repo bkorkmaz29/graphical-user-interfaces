@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { writeFile, readFile } from 'fs';
 
 let projects = {projects: []};
-const path = './projects.json';
+const path = './db/projects.json';
 
 readFile(path, function (err, data) {
     var json = JSON.parse(data)

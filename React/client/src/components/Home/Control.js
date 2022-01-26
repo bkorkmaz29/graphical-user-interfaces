@@ -3,7 +3,7 @@ import Button from '../common/Button'
 import TimeSpent from './TimeSpent';
 
 
-const Control = ({ onAddProject, onAddEntry, onChangeDate, onUpdateEntry, timeSpent }) => {
+const Control = ({ onAddProject, onAddEntry, onChangeDate, timeSpent }) => {
 
 
     let date = new Date();

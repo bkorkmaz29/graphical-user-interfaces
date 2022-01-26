@@ -55,7 +55,7 @@ const AddProject = ({ onAddProject }) => {
           </div>
           <div>
             <input
-              type='text'
+              type='number'
               placeholder='Enter Budget'
               value={budget}
               onChange={(e) => setBudget(e.target.value)}
