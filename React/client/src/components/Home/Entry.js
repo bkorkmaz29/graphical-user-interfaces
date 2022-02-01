@@ -7,9 +7,9 @@ const Entry = ({ entry, onUpdate, onDelete }) => {
       <div className="flex flex-row basis-3/4 m-1 bg-yellow-50 rounded w-full p-1 ">
         <div className='flex flex-col basis-1/2 '>
           <span className='font-bold '>Code:</span>
-          <span className='font-semibold'> Subcode:</span>
-          <span className='font-semibold'>Description:</span>
-          <span className='font-semibold'>Time:</span>
+          <span className='font-bold'> Subcode:</span>
+          <span className='font-bold'>Description:</span>
+          <span className='font-bold'>Time:</span>
         </div>
         <div className='flex flex-col basis-1/2'>
           <h2>

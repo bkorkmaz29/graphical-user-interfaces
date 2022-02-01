@@ -21,8 +21,8 @@ const AddEntry = ({ onAddEntry, projectCodes }) => {
     e.preventDefault()
 
 
-    if (!code) {
-      alert('Please enter a code')
+    if (!code || !subcode || !time || !description) {
+      alert('Please fill all the fields')
       return
     }
 

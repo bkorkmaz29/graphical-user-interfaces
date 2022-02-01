@@ -11,6 +11,12 @@ const UpdateEntry = ({ onUpdateEntry, onBack, entry }) => {
   const onSubmit = (e) => {
     e.preventDefault()
 
+    
+    if (!code || !subcode || !time || !description) {
+      alert('Please fill all the fields')
+      return
+    }
+
     onUpdateEntry({ code, subcode, time, description, date, id })
     setCode('')
     setSubcode('')

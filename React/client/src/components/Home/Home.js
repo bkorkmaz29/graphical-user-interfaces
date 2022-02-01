@@ -20,6 +20,7 @@ const Home = () => {
   const [showUpdateEntry, setShowUpdateEntry] = useState(false)
   const [entry, setEntry] = useState()
   const [projectCodes, setProjectCodes] = useState([])
+  const [entries, setEntries] = useState([])
   const [dailyEntries, setDailyEntries] = useState([])
   const [timeSpent, setTimeSpent] = useState(0)
   let a = new Date();
@@ -41,24 +42,32 @@ const Home = () => {
   }, []);
 
 
-
   useEffect(() => {
     
     setMonth(date.slice(0, -3));
  
 }, [date]);
 
-  useEffect(() => {
 
-    const fetchEntries = async () => {
-      const resEntries = await axios(
-        `http://localhost:5000/entries/${from.user}/${month}`
-      );
-      setDailyEntries(resEntries.data.entries.filter((entry) => entry.date === date));
-    };
-    fetchEntries();
-    fetchEntries();
-  }, [month, date, from.user, entry, showAddEntry]);
+useEffect(() => {
+
+  const fetchEntries = async () => {
+    const resEntries = await axios(
+      `http://localhost:5000/entries/${from.user}/${month}`
+    );
+    setEntries(resEntries.data.entries);
+  };
+
+  fetchEntries();
+  fetchEntries();
+}, [month, from.user]);
+
+
+useEffect(() => {
+
+  setDailyEntries(entries.filter((entry) => entry.date === date));
+
+}, [entries, date]);
 
 
   useEffect(() => {
@@ -78,7 +87,8 @@ const Home = () => {
     setShowAddEntry(!showAddEntry);
     setEntry(entry.code);
     let id = uuidv4();
-    let newEntry = { ...entry, date, id }
+    let newEntry = { ...entry, date, id };
+    setEntries([...entries, newEntry]);
 
     await axios.post(`http://localhost:5000/entries/${from.user}/${month}`, newEntry)
     
@@ -86,12 +96,12 @@ const Home = () => {
 
   const deleteEntry = async (id) => {
     setEntry(id)
-    setDailyEntries(dailyEntries.filter((entry) => entry.id !== id))
+    setEntries(entries.filter((entry) => entry.id !== id))
     await axios.delete(`http://localhost:5000/entries/${from.user}/${month}/${id}`)
   }
 
   const updateEntry = async (newEntry) => {
-    const entryToUpdate = dailyEntries.find((entry) => entry.id === newEntry.id);
+    const entryToUpdate = entries.find((entry) => entry.id === newEntry.id);
 
     entryToUpdate.code = newEntry.code;
     entryToUpdate.subcode = newEntry.subcode;
