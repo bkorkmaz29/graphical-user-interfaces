@@ -8,7 +8,7 @@ A web application for reporting and keeping record of time spent on projects.
 - React
 - Tailwind CSS
 - React Router
-- 
+
 ### Server
 - Node.js
 - Express.js
